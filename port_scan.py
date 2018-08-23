@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #-*- coding:utf-8 -*-
-#port_scan_mutithread
+#port_scan_multithread
 
 
 import optparse
