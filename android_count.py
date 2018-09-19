@@ -77,6 +77,7 @@ def main():
     req = requests.get(target)
     output = req.text
     h2 = output.split('security patch level—Vulnerability details</h2>') # h2 确定CVE发布日期是1号还是5号，以此判断是framework层还是driver层，暂不考虑google update部分
+    # h2 = output.split('security patch level vulnerability details</h2>') # 2018.03开始h2的内容修改为level vulnerability 
     h2.remove(h2[0])
     data = []
     for date in range(len(h2)):
