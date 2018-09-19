@@ -1,2 +1,2 @@
 # cdd
-android_count.py 用于统计谷歌18年3月份之前发布的安全公告中的CVE并生成Excel
+android_count.py 用于统计谷歌17年6月到18年2月发布的安全公告中的CVE并生成Excel 注释掉的h2那行代码用于统计3月之后的
