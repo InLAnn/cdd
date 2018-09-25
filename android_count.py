@@ -33,16 +33,19 @@ def print_td(h3, date, data, month):
             else:
                 td.insert(2, 'Driver')
 
-            if td[4] == 'EoP': # check vuln type
-                vuln_component = 'Elevation of privilege vulnerability in ' + td[0]
-            elif td[4] == 'ID':
-                vuln_component = 'Information disclosure vulnerability in ' + td[0]
-            elif td[4] == 'RCE':
-                vuln_component = 'Remote code execution vulnerability in ' + td[0]
-            elif td[4] == 'DoS':
-                vuln_component = 'Denial of service vulnerability in ' + td[0]
-            else: # td[4] = N/A
-                vuln_component = 'Vulnerability in ' + td[0]
+            vuln_component = ''
+            check_vuln_type(td)
+
+            # if td[4] == 'EoP': # check vuln type
+            #     vuln_component = 'Elevation of privilege vulnerability in ' + td[0]
+            # elif td[4] == 'ID':
+            #     vuln_component = 'Information disclosure vulnerability in ' + td[0]
+            # elif td[4] == 'RCE':
+            #     vuln_component = 'Remote code execution vulnerability in ' + td[0]
+            # elif td[4] == 'DoS':
+            #     vuln_component = 'Denial of service vulnerability in ' + td[0]
+            # else: # td[4] = N/A
+            #     vuln_component = 'Vulnerability in ' + td[0]
 
             td.remove(td[0]) # 针对单个CVE块列表进行修改
             td.remove(td[3])
@@ -53,8 +56,8 @@ def print_td(h3, date, data, month):
             td.append(' ')
             td.append(' ')
 
-            with open('out2.txt','a') as f:
-                print(td, file=f)
+            # with open('out2.txt','a') as f:
+            #     print(td, file=f)
 
             if '#asterisk' in td[4]:  # 确定是否公开源码
                 td.append(source)
@@ -63,6 +66,19 @@ def print_td(h3, date, data, month):
             td.remove(td[4])
             data.append(td)
     return data
+
+def check_vuln_type(td):
+    if td[4] == 'EoP':  # check vuln type
+        vuln_component = 'Elevation of privilege vulnerability in ' + td[0]
+    elif td[4] == 'ID':
+        vuln_component = 'Information disclosure vulnerability in ' + td[0]
+    elif td[4] == 'RCE':
+        vuln_component = 'Remote code execution vulnerability in ' + td[0]
+    elif td[4] == 'DoS':
+        vuln_component = 'Denial of service vulnerability in ' + td[0]
+    else:  # td[4] = N/A
+        vuln_component = 'Vulnerability in ' + td[0]
+    return vuln_component
 
 def write_excel(data):
     app = xw.App(visible=True, add_book=False)
@@ -76,8 +92,8 @@ def main():
     # target = 'https://source.android.com/security/bulletin/2017-06-01?hl=en'
     req = requests.get(target)
     output = req.text
-    h2 = output.split('security patch level—Vulnerability details</h2>') # h2 确定CVE发布日期是1号还是5号，以此判断是framework层还是driver层，暂不考虑google update部分
-    # h2 = output.split('security patch level vulnerability details</h2>') # 2018.03开始h2的内容修改为level vulnerability 
+    # h2 = output.split('security patch level—Vulnerability details</h2>') # h2 确定CVE发布日期是1号还是5号，以此判断是framework层还是driver层，暂不考虑google update部分
+    h2 = output.split('security patch level vulnerability details</h2>') #  2018.03开始h2中的内容修改为level vulnerability
     h2.remove(h2[0])
     data = []
     for date in range(len(h2)):
@@ -99,4 +115,3 @@ if __name__ == '__main__':
         main()
     else:
         print('Usage Error')
-
