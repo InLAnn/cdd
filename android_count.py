@@ -15,7 +15,6 @@ def match_month(target):
 def print_td(h3, date, data, month):
     newL = h3[:]
     source = '未公开源码'
-
     for i in range(0, len(newL)):
         tr = re.findall('<tr>.*?</tr>', h3[i], re.S)  # tr是每个CVE块组成的列表
         component = re.findall('id="(.*?)"', h3[i], re.S)
@@ -55,9 +54,6 @@ def print_td(h3, date, data, month):
             td.append(' ')
             td.append(' ')
             td.append(' ')
-
-            # with open('out2.txt','a') as f:
-            #     print(td, file=f)
 
             if '#asterisk' in td[4]:  # 确定是否公开源码
                 td.append(source)
