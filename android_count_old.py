@@ -40,8 +40,6 @@ def print_td(h3, date, data, month):
                 td[0] = td[0].replace('Eop', 'Elevation of privilege vulnerability')
             elif 'Dos' in td[0]:
                 td[0] = td[0].replace('Dos', 'Denial of service vulnerability')
-            else:
-                continue
 
             if date == 0:
                 td.insert(2, 'Framework')
