@@ -1,1 +1,0 @@
-./weibo_monitor_deamon.sh >> log_deamon.log 2>&1 &
