@@ -118,7 +118,7 @@ def get_md5(strs):
 
 def download_image(image_source):
     r = requests.get(image_source.strip())
-    file_name = get_md5(image_source) + '.png'
+    file_name = get_md5(image_source.encode('utf-8')) + '.png'
     with open('./images/' + file_name, 'wb') as f:
         f.write(r.content)
     return './images/' + file_name
